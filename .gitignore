@@ -1,11 +1,37 @@
-echo "target/
-*.log
-*.class
+# 🛑 忽略編譯產物（Maven）
+target/
 *.jar
 *.war
-node_modules/
+
+# 🛑 忽略環境變數與密鑰
+.env
+*.env
+config/secrets.env
+
+# 🛑 忽略 Docker 產生的文件
+docker-compose.override.yml
+docker-compose.yaml~
+*.log
+*.pid
+*.sock
+
+# 🛑 忽略 IDE 設定檔
+# 👉 IntelliJ IDEA
 .idea/
 *.iml
-.env
-application.properties
-" > .gitignore
+*.iws
+out/
+
+# 👉 VS Code
+.vscode/
+
+# 👉 Eclipse
+.metadata/
+.classpath
+.project
+.settings/
+
+# 🛑 忽略 OS 系統文件
+.DS_Store
+Thumbs.db
+*.swp
