@@ -1,0 +1,11 @@
+echo "target/
+*.log
+*.class
+*.jar
+*.war
+node_modules/
+.idea/
+*.iml
+.env
+application.properties
+" > .gitignore
