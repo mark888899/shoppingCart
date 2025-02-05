@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  shoppingcart:
+    build: .
+    container_name: shoppingcart_app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/shoppingcart
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: shoppingcart_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: shoppingcart
+    ports:
+      - "3306:3306"
