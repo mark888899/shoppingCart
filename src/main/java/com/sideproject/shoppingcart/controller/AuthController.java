@@ -28,7 +28,7 @@ public class AuthController {
     @PostMapping("/login")
     @Operation(summary = "登入", description = "輸入帳號密碼進行登入")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        return authService.login(request.getUserEmail(), request.getPassword());
+        return authService.login(request);
     }
 
     public Long getLoggedInUserId() {
