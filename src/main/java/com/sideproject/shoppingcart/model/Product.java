@@ -18,6 +18,8 @@ public class Product {
     @Column(nullable = false)
     private int stock; // 庫存數量
 
+    private String image;
+
     // Getters and Setters
     public Long getId() {
         return id;
@@ -49,5 +51,13 @@ public class Product {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
