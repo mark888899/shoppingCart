@@ -30,16 +30,26 @@ public class CartService {
             return ResponseEntity.status(404).body("找不到該商品");
         }
         Product product = optionalProduct.get();
-        Cart cart = new Cart();
 
-        cart.setUserId(userId); // 綁定購物車項目到登入的使用者
-        cart.setProductId(product.getId());
-        cart.setProductName(product.getName());
-        cart.setPrice(product.getPrice());
-        cart.setQuantity(quantity);
+        Optional<Cart> existingCartItem = cartRepository.findByUserIdAndProductId(userId, productId);
 
-        cartRepository.save(cart);
-        return ResponseEntity.ok("Item added to cart for user ID: " + userId + " and product ID: " + productId);
+        if (existingCartItem.isPresent()) {
+            // 購物車內已有該商品，則更新數量
+            Cart cart = existingCartItem.get();
+            cart.setQuantity(cart.getQuantity() + quantity); // 累加
+            cartRepository.save(cart);
+            return ResponseEntity.ok("已更新购物车中的商品数量: " + cart.getQuantity());
+        } else {
+            // 沒有該商品，新增項目到購物車
+            Cart cart = new Cart();
+            cart.setUserId(userId);
+            cart.setProductId(product.getId());
+            cart.setProductName(product.getName());
+            cart.setPrice(product.getPrice());
+            cart.setQuantity(quantity);
+            cartRepository.save(cart);
+            return ResponseEntity.ok("新商品已添加到购物车，用户ID: " + userId + "，商品ID: " + productId);
+        }
     }
 
     public ResponseEntity<?> getCartItems(Long userId) {
@@ -48,10 +58,10 @@ public class CartService {
     }
 
     public ResponseEntity<?> removeFromCart(Long userId, Long productId) {
-        Cart cartItem = cartRepository.findByUserIdAndProductId(userId, productId);
-        if (cartItem != null) {
-            cartRepository.delete(cartItem);
-            return ResponseEntity.ok("用戶" + userRepository.findUsernameById(userId) + " 購物車中的 " + cartItem.getProductName() +" 商品已移除");
+        Optional<Cart> cartItem = cartRepository.findByUserIdAndProductId(userId, productId);
+        if (cartItem.isPresent()) {
+            cartRepository.delete(cartItem.get());
+            return ResponseEntity.ok("用戶" + userRepository.findUsernameById(userId) + " 購物車中的 " + cartItem.get().getProductName() +" 商品已移除");
         }
         return ResponseEntity.status(404).body("Item not found in cart");
     }

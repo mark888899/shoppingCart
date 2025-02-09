@@ -1,23 +1,12 @@
 package com.sideproject.shoppingcart.dto;
 
+import lombok.Data;
+
+@Data
 public class CartRequest {
-    private Long productId;
-    private int quantity;
 
-    // Getters and Setters
-    public Long getProductId() {
-        return productId;
-    }
+    private Long productId; // 商品Id
+    private int quantity; // 數量
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 }
