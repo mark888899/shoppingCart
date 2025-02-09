@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -25,13 +27,8 @@ public class AuthController {
 
     @PostMapping("/login")
     @Operation(summary = "登入", description = "輸入帳號密碼進行登入")
-    public ResponseEntity<?> login(LoginRequest request) {
-        ResponseEntity<?> response = authService.login(request.getUsername(), request.getPassword());
-        if (response.getStatusCode().is2xxSuccessful()) {
-            Optional<User> user = userRepository.findByUsername(request.getUsername());
-            user.ifPresent(value -> loggedInUserId = value.getId()); // 設定當前登入的使用者 ID
-        }
-        return response;
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        return authService.login(request.getUserEmail(), request.getPassword());
     }
 
     public Long getLoggedInUserId() {
