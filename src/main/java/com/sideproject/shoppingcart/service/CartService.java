@@ -57,12 +57,14 @@ public class CartService {
         return ResponseEntity.ok(userCartItems);
     }
 
-    public ResponseEntity<?> removeFromCart(Long userId, Long productId) {
-        Optional<Cart> cartItem = cartRepository.findByUserIdAndProductId(userId, productId);
+    public boolean removeFromCart(Long userId, Long id) {
+        // 確認該商品是否存在於用戶的購物車
+        Optional<Cart> cartItem = cartRepository.findByUserIdAndId(userId, id);
+
         if (cartItem.isPresent()) {
             cartRepository.delete(cartItem.get());
-            return ResponseEntity.ok("用戶" + userRepository.findUsernameById(userId) + " 購物車中的 " + cartItem.get().getProductName() +" 商品已移除");
+            return true;
         }
-        return ResponseEntity.status(404).body("Item not found in cart");
+        return false;
     }
 }

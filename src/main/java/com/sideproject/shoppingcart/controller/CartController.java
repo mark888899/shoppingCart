@@ -49,14 +49,24 @@ public class CartController {
         return cartService.getCartItems(user.getId());
     }
 
-    @DeleteMapping("/remove/{productId}")
+    @DeleteMapping("/remove/{id}")
     @Operation(summary = "移除購物車商品", description = "根據商品ID刪除購物車內的特定商品")
-    public ResponseEntity<?> removeFromCart(@RequestHeader("Authorization") String token,@PathVariable Long productId) {
+    public ResponseEntity<?> removeFromCart(@RequestHeader("Authorization") String token,
+                                            @PathVariable("id") Long id) {
+        // 獲取用戶 Email
         String userEmail = jwtUtil.getEmailFromToken(token.replace("Bearer ", ""));
         User user = userRepository.findByUserEmail(userEmail).orElse(null);
+        // 檢查用戶是否存在
         if (user == null) {
-            return ResponseEntity.status(401).body("User not logged in");
+            return ResponseEntity.status(401).body("未登入用戶");
         }
-        return cartService.removeFromCart(user.getId(),productId);
+        // 呼叫 cartService 來刪除購物車中的商品
+        boolean removed = cartService.removeFromCart(user.getId(), id);
+        if (removed) {
+            return ResponseEntity.ok("商品已成功從購物車移除");
+        } else {
+            return ResponseEntity.status(404).body("購物車內無此商品");
+        }
     }
+
 }
