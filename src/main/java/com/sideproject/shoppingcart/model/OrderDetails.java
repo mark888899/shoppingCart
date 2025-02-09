@@ -12,13 +12,11 @@ public class OrderDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 訂單詳情 ID，自動遞增
 
-    @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
-    private Order order; // 關聯的訂單
+    private Long orderId; // 關聯的訂單
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product; // 關聯的商品
+    @Column(nullable = false)
+    private Long productId; // 商品名稱
 
     @Column(nullable = false)
     private String productName; // 商品名稱
@@ -28,4 +26,5 @@ public class OrderDetails {
 
     @Column(nullable = false)
     private double price; // 單價
+
 }

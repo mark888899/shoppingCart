@@ -19,12 +19,14 @@ public class Order {
     private Long userId; // 訂購人 ID
 
     @Column(nullable = false)
-    private double totalAmount; // 訂單總金額
+    private double totalPrice; // 訂單總金額
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate = new Date();
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderDetails> orderDetails; // 訂單內的商品
+    @Column(nullable = false)
+    private int orderStatus; // 訂單狀況  0:待出貨 1:已出貨 2:訂單已完成 3:訂單取消
+
+
 }
