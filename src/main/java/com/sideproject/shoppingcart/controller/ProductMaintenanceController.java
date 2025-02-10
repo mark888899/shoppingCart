@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products/Maintenance")
+@RequestMapping("/products/maintenance")
 public class ProductMaintenanceController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class ProductMaintenanceController {
 
     @PutMapping("/update")
     @Operation(summary = "更新商品", description = "更新商品")
-    public ResponseEntity<Product> updateProduct(Product product) {
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
         return productMaintenanceService.updateProduct(product);
     }
 

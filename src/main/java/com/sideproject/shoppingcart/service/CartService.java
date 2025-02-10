@@ -38,7 +38,7 @@ public class CartService {
             Cart cart = existingCartItem.get();
             cart.setQuantity(cart.getQuantity() + quantity); // 累加
             cartRepository.save(cart);
-            return ResponseEntity.ok("已更新购物车中的商品数量: " + cart.getQuantity());
+            return ResponseEntity.ok("已更新購物車中 "+ product.getName() +" 的商品數量為: " + cart.getQuantity());
         } else {
             // 沒有該商品，新增項目到購物車
             Cart cart = new Cart();
@@ -48,7 +48,7 @@ public class CartService {
             cart.setPrice(product.getPrice());
             cart.setQuantity(quantity);
             cartRepository.save(cart);
-            return ResponseEntity.ok("新商品已添加到购物车，用户ID: " + userId + "，商品ID: " + productId);
+            return ResponseEntity.ok("新商品 "+ product.getName() +" 已添加1件到購物車");
         }
     }
 
