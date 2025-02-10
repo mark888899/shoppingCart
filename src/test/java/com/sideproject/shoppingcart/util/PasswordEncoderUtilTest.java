@@ -10,7 +10,7 @@ public class PasswordEncoderUtilTest {
 
     @Test
     public void testEncode() {
-        String rawPassword = "user1pass";
+        String rawPassword = "adminRolePassWord";
         String encodedPassword = PasswordEncoderUtil.encode(rawPassword);
         System.out.println(encodedPassword);
         assertNotNull(encodedPassword);
