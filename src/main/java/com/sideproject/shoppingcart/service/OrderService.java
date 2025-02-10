@@ -82,7 +82,7 @@ public class OrderService {
 
         List<Order> orders = orderRepository.findByUserId(userId);
         if (orders.isEmpty()) {
-            return ResponseEntity.status(404).body("該用戶查無訂單");
+            return ResponseEntity.badRequest().body("該用戶查無訂單");
         } else {
             orders.forEach(order -> {
                 OrderList orderList = new OrderList();
