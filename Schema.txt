@@ -54,9 +54,22 @@ CREATE TABLE `products` (
   `price` double NOT NULL,
   `stock` int NOT NULL,
   `image` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `category_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK98rlfrcwlr0450n4dvpfh3580` (`category_id`),
+  CONSTRAINT `FK98rlfrcwlr0450n4dvpfh3580` FOREIGN KEY (`category_id`) REFERENCES `productcategories` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+#商品類別
+-- shoppingcart.productcategories definition
+
+CREATE TABLE `productcategories` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '類別編號',
+  `name` varchar(100) NOT NULL COMMENT '產品類別名稱',
+  `description` text COMMENT '類別備註',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 #購物車
 -- shoppingcart.cart definition

@@ -22,9 +22,16 @@ INSERT INTO shoppingcart.orderdetails (id, order_id, product_id, product_name, q
 INSERT INTO shoppingcart.orderdetails (id, order_id, product_id, product_name, quantity, price) VALUES(8, 6, 3, 'Headphones', 1, 150.0);
 
 #在庫商品
-INSERT INTO shoppingcart.products (id, name, price, stock, image) VALUES(1, 'Laptop', 1200.0, 10, 'laptop.jpg');
-INSERT INTO shoppingcart.products (id, name, price, stock, image) VALUES(2, 'Smartphone', 800.0, 20, 'smartphone.jpg');
-INSERT INTO shoppingcart.products (id, name, price, stock, image) VALUES(3, 'Headphones', 150.0, 30, 'headphones.jpg');
+INSERT INTO shoppingcart.products (id, name, price, stock, image, catagories_id) VALUES(1, 'Laptop', 1200.0, 10, 'laptop.jpg', 1);
+INSERT INTO shoppingcart.products (id, name, price, stock, image, catagories_id) VALUES(2, 'Smartphone', 800.0, 20, 'smartphone.jpg', 2);
+INSERT INTO shoppingcart.products (id, name, price, stock, image, catagories_id) VALUES(3, 'Headphones', 150.0, 30, 'headphones.jpg', 5);
+
+#商品類別
+INSERT INTO shoppingcart.productcategories (id, name, description) VALUES(1, '平板', NULL);
+INSERT INTO shoppingcart.productcategories (id, name, description) VALUES(2, '手機', NULL);
+INSERT INTO shoppingcart.productcategories (id, name, description) VALUES(3, '筆記型電腦', NULL);
+INSERT INTO shoppingcart.productcategories (id, name, description) VALUES(4, '電腦零組件', 'CPU、顯示卡、機殼風扇等等');
+INSERT INTO shoppingcart.productcategories (id, name, description) VALUES(5, '電腦周邊', '手機、鍵盤、滑鼠、螢幕等等');
 
 #購物車
 INSERT INTO shoppingcart.cart (id, product_id, product_name, quantity, price, user_id, order_id) VALUES(1, 1, 'Laptop', 1, 1200.0, 1, NULL);

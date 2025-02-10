@@ -1,5 +1,6 @@
 package com.sideproject.shoppingcart.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,6 +21,10 @@ public class Product {
     @Column(nullable = false)
     private int stock; // 庫存數量
 
+    @Column
     private String image;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private ProductCategory category; // 產品類別關聯
 }
