@@ -42,7 +42,7 @@ public class AuthService {
         response.setMessage("登入成功！");
         response.setEmail(user.getUserEmail());
         response.setUsername(user.getUsername());
-        response.setRole(user.getRole()); //使用者權限
+        response.setRole(user.getRole()==1 ? "ADMIN" : "USER"); //使用者權限
         response.setToken(token); // 🔹 回傳 JWT Token
 
         return ResponseEntity.ok(response);

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -17,12 +18,12 @@ public class ProductMaintenanceService {
     /**
      * 新增商品
      */
-    public ResponseEntity<Product> addProduct(Product product) {
+    public ResponseEntity<?> addProduct(Product product) {
         if (product.getId() != null) {
-            return ResponseEntity.badRequest().body(null); // 禁止傳入 id
+            return ResponseEntity.status(404).body(Map.of("message", "ID為系統產生，不可自行輸入")); // 禁止傳入 id
         }
         if (product.getName() == null || product.getPrice() == 0) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(404).body(Map.of("message", "請輸入正確的商品資訊"));
         }
         Product savedProduct = productRepository.save(product);
         return ResponseEntity.ok(savedProduct);
@@ -31,9 +32,9 @@ public class ProductMaintenanceService {
     /**
      * 更新商品
      */
-    public ResponseEntity<Product> updateProduct(Product product) {
+    public ResponseEntity<?> updateProduct(Product product) {
         if (product.getId() == null) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(404).body(Map.of("message", "系統出錯，請通知客服"));
         }
 
         Optional<Product> existingProduct = productRepository.findById(product.getId());
@@ -41,7 +42,7 @@ public class ProductMaintenanceService {
             Product updatedProduct = productRepository.save(product);
             return ResponseEntity.ok(updatedProduct);
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(404).body(Map.of("message", "商品不存在"));
     }
 
     /**
@@ -53,6 +54,6 @@ public class ProductMaintenanceService {
             productRepository.deleteById(id);
             return ResponseEntity.ok("商品刪除成功");
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(404).body(Map.of("message", "商品不存在"));
     }
 }

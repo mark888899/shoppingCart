@@ -4,6 +4,7 @@ import com.sideproject.shoppingcart.model.ProductCategory;
 import com.sideproject.shoppingcart.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class ProductCategoryController {
         return ResponseEntity.ok(productCategoryService.getAllCategories());
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<ProductCategory> addCategory(@RequestBody ProductCategory productCategory) {
         return ResponseEntity.ok(productCategoryService.addCategory(productCategory));

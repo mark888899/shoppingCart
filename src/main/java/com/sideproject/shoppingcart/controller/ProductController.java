@@ -22,7 +22,6 @@ public class ProductController {
         return productService.getAvailableProducts();
     }
 
-
     @GetMapping("/{id}")
     @Operation(summary = "商品細節", description = "商品細節")
     public ResponseEntity<?> getProductDetails(

@@ -20,19 +20,10 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    private Long loggedInUserId;
-
     @PostMapping("/login")
     @Operation(summary = "登入", description = "輸入帳號密碼進行登入")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         return authService.login(request);
-    }
-
-    public Long getLoggedInUserId() {
-        return loggedInUserId;
     }
 
     @PostMapping("/logout")
