@@ -25,7 +25,7 @@ public class CartController {
     @Autowired
     private UserRepository userRepository;
 
-    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping("/add")
     @Operation(summary = "加入購物車", description = "登入後根據商品ID將商品加入購物車")
     public ResponseEntity<?> addToCart(@RequestHeader("Authorization") String token,@RequestBody CartRequest request) {
