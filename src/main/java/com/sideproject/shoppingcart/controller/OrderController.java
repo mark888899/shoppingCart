@@ -32,11 +32,9 @@ public class OrderController {
     public ResponseEntity<?> checkout(@RequestHeader("Authorization") String token) {
         String userEmail = jwtUtil.getEmailFromToken(token.replace("Bearer ", ""));
         User user = userRepository.findByUserEmail(userEmail).orElse(null);
-
         if (user == null) {
             return ResponseEntity.status(401).body("用戶未登入");
         }
-
         return orderService.checkout(user.getId());
     }
 

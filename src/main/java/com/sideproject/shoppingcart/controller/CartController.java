@@ -31,7 +31,6 @@ public class CartController {
     public ResponseEntity<?> addToCart(@RequestHeader("Authorization") String token,@RequestBody CartRequest request) {
         String userEmail = jwtUtil.getEmailFromToken(token.replace("Bearer ", ""));
         User user = userRepository.findByUserEmail(userEmail).orElse(null);
-
         if (user == null) {
             return ResponseEntity.status(401).body("User not logged in");
         }
