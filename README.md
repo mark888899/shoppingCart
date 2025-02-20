@@ -12,7 +12,7 @@
 - **構建工具**：Maven
 - **API文件**：Springdoc OpenAPI
 - **JSON處理**：Jackson（因應JJWT與Spring starter衝突）
-- **部署**：Docker、Kubernetes
+- **部署**：Docker、Kubernetes (使用Minikube)
 - **測試**：JUnit 5（Jupiter）、Mockito
 
 ## 環境設定
