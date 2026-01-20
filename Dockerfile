@@ -12,7 +12,7 @@ COPY src/ src/
 RUN mvn clean package -DskipTests
 
 # 使用輕量化 JDK 運行 Spring Boot
-FROM openjdk:21-jdk-slim
+FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
 
 # 複製已打包的 JAR

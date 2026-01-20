@@ -10,10 +10,11 @@ public class PasswordEncoderUtilTest {
 
     @Test
     public void testEncode() {
-        String rawPassword = "adminRolePassWord";
+        String rawPassword = "admin";  //admin密碼adminRolePassWord  //user1密碼user1pass
         String encodedPassword = PasswordEncoderUtil.encode(rawPassword);
         System.out.println(encodedPassword);
         assertNotNull(encodedPassword);
         assertTrue(BCrypt.checkpw(rawPassword, encodedPassword));
     }
 }
+

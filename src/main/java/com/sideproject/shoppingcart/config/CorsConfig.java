@@ -13,7 +13,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // 允許 / 下的所有請求
-                        .allowedOrigins("http://localhost:5173") // 允許前端的 URL
+                        .allowedOrigins("http://localhost:4000") // 允許前端的 URL
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // 允許的方法
                         .allowedHeaders("*") // 允許所有 Header
                         .allowCredentials(true);

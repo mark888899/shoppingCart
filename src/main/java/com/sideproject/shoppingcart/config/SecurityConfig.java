@@ -24,12 +24,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> cors.configure(http))
                 .authorizeHttpRequests(auth -> auth
                                 // 🔹 允許 Swagger 相關資源存取，不需要登入
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs","/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
 
                         // 🔹 允許未登入使用的 API
-                        .requestMatchers("/auth/login", "/auth/register", "/products/**", "/product/categories/").permitAll()
+                        .requestMatchers("/auth/login","/auth/logout", "/auth/register", "/products/**", "/product/categories/").permitAll()
                         // 🔹 限制管理 API
                         .requestMatchers("/products/maintenance/**").hasAuthority("ROLE_ADMIN")
                         // 🔹 其他 API 預設需要登入

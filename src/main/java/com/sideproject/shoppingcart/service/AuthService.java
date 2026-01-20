@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -26,7 +28,7 @@ public class AuthService {
         Optional<User> userOpt = userRepository.findByUserEmail(request.getUserEmail());
 
         if (userOpt.isEmpty()) {
-            return ResponseEntity.status(401).body("帳號或密碼錯誤");
+            return ResponseEntity.status(401).body("帳號不存在");
         }
         User user = userOpt.get();
 
@@ -42,7 +44,7 @@ public class AuthService {
         response.setMessage("登入成功！");
         response.setEmail(user.getUserEmail());
         response.setUsername(user.getUsername());
-        response.setRole(user.getRole()==1 ? "ADMIN" : "USER"); //使用者權限
+        response.setRole(user.getRole()==1 ? "ADMIN" : "USER"); //TODO better使用者權限
         response.setToken(token); // 🔹 回傳 JWT Token
 
         return ResponseEntity.ok(response);
@@ -50,7 +52,15 @@ public class AuthService {
     }
 
     public ResponseEntity<?> logout(String token) {
-        // TODO 模擬登出邏輯，實際應用應處理 JWT 或 Session
-        return ResponseEntity.ok("Logout successful");
+        // 解析 Token 資訊（選配）
+        if (token != null && token.startsWith("Bearer ")) {
+            String jwt = token.substring(7);
+            // 這裡可以 Log 記錄是哪個 Token 登出了
+            System.out.println("Token logged out: " + jwt);
+        }
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Logout successful");
+        return ResponseEntity.ok(response);
     }
 }

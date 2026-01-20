@@ -32,6 +32,14 @@ public class UserRoleFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
+        String path = httpRequest.getServletPath();
+
+        // 如果是登入、註冊或是 Swagger，直接跳過這個 Filter
+        if (path.startsWith("/auth/") || path.startsWith("/swagger-ui") || path.startsWith("/v3/api-docs")) {
+            chain.doFilter(request, response);
+            return;
+        }
+
         // 讀取 Header 中的角色名稱
         String roleHeader = httpRequest.getHeader("X-USER-ROLE");
 
